@@ -1,0 +1,395 @@
+:root{
+    --verde-principal: #1f7a55;
+    --verde-oscuro: #14513a;
+    --verde-suave: #eef8f1;
+    --texto: #203028;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0;
+    font-family: "Sour Gummy", "Trebuchet MS", sans-serif;
+    color: var(--texto);
+    background: linear-gradient(180deg, #ffffff 0%, #f5fbf7 100%);
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+.sitio-navbar{
+    background-image: linear-gradient(rgba(20, 81, 58, 0.92), rgba(91, 100, 229, 0.92)), url("imagenes/barra.png");
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+.logo-navbar{
+    width: 54px;
+    height: auto;
+}
+
+.navbar .nav-link{
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 700;
+    border-radius: 6px;
+    padding-inline: 14px;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active{
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.hero{
+    position: relative;
+    min-height: 78vh;
+    margin-top: 72px;
+    overflow: hidden;
+}
+
+.hero-img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay{
+    position: relative;
+    min-height: 78vh;
+    background: linear-gradient(90deg, rgba(13, 46, 34, 0.8), rgba(13, 46, 34, 0.28));
+}
+
+.page-hero{
+    position: relative;
+    min-height: 52vh;
+    margin-top: 72px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+}
+
+.page-hero--importancia{
+    background-image: linear-gradient(90deg, rgba(13, 46, 34, 0.82), rgba(13, 46, 34, 0.38)), url("materiales/atardecer.webp");
+}
+
+.page-hero--galeria{
+    background-image: linear-gradient(90deg, rgba(13, 46, 34, 0.82), rgba(13, 46, 34, 0.38)), url("iconos/bosque2.webp");
+}
+
+.page-hero--contacto{
+    background-image: linear-gradient(90deg, rgba(13, 46, 34, 0.82), rgba(13, 46, 34, 0.38)), url("iconos/nubes.webp");
+}
+
+.page-hero--nosotros{
+    background-image: linear-gradient(90deg, rgba(45, 45, 98, 0.82), rgba(13, 46, 34, 0.38)), url("materiales/atardecer.webp");
+}
+
+.page-hero-overlay{
+    position: relative;
+    min-height: 52vh;
+    background: linear-gradient(90deg, rgba(13, 46, 34, 0.28), rgba(13, 46, 34, 0.58));
+}
+
+.min-vh-page-hero{
+    min-height: 52vh;
+    padding-block: 48px;
+}
+
+.section-kicker{
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--verde-principal);
+}
+
+.min-vh-hero{
+    min-height: 78vh;
+    padding-block: 48px;
+}
+
+.tarjeta-acceso{
+    color: var(--texto);
+    background-color: #eef7ff;
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(76, 130, 180, 0.16);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-acceso:hover{
+    color: var(--texto);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(76, 130, 180, 0.26);
+}
+
+.tarjeta-acceso img{
+    height: 190px;
+    object-fit: contain;
+    padding: 24px;
+    background-color: #dceeff;
+}
+
+.contenido-card{
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.imagen-caja{
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.tarjeta-con-imagen .contenido-card{
+    border-radius: 8px;
+    width: 80%;
+    margin-inline: auto;
+}
+
+@media (max-width: 767.98px){
+    .tarjeta-con-imagen .contenido-card{
+        width: 100%;
+    }
+}
+/* el de abajo controla el tamaño de boton de las reservas */
+.tarjeta-con-imagen .btn{
+    font-size: 1.05em;
+    padding: 0.45rem 0.9rem;
+}
+
+.seccion-verde{
+    background-color: var(--verde-suave);
+}
+
+.imagen-contenido{
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    background-color: #fafff5;
+}
+
+.icono-seccion{
+    width: 58px;
+    height: auto;
+}
+
+.galeria-card{
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.galeria-card-link{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.galeria-card img{
+    height: 285px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.galeria-card-link:hover img{
+    transform: scale(1.03);
+    filter: brightness(0.96);
+}
+
+.imagen-click{
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.imagen-click:hover{
+    filter: brightness(0.94);
+}
+
+.imagen-click.ampliada{
+    transform: scale(1.08);
+    z-index: 2;
+}
+
+footer{
+    overflow: hidden;
+    background-color: #d8dfda;
+    border-top: 3px solid var(--verde-principal);
+}
+
+.footer-animado{
+    position: relative;
+}
+
+.texto-animado-wrapper{
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.red-social{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(31, 122, 85, 0.14);
+    background-color: #ffffff;
+}
+
+.red-social:hover{
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 18px rgba(31, 122, 85, 0.22);
+}
+
+.red-social img{
+    width: 24px;
+    height: 24px;
+}
+
+.footer-gif{
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid rgba(31, 122, 85, 0.15);
+    background-color: #ffffff;
+    padding: 4px;
+}
+
+.texto-animado{
+    display: inline-block;
+    white-space: nowrap;
+    animation: mover-texto 14s linear infinite;
+    padding-right: 2rem;
+}
+
+@keyframes mover-texto{
+    from{
+        transform: translateX(100vw);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 767.98px){
+    .hero,
+    .hero-overlay,
+    .min-vh-hero{
+        min-height: 68vh;
+    }
+
+    .hero{
+        margin-top: 66px;
+    }
+
+    .tarjeta-acceso img,
+    .galeria-card img{
+        height: 245px;
+    }
+}
+
+.seccion-contacto{
+    background-color: #f6fbf8;
+}
+
+.lista-contenido{
+    padding-left: 1.15rem;
+    margin-bottom: 0;
+}
+
+.lista-contenido li + li{
+    margin-top: 0.7rem;
+}
+
+.contacto-card{
+    border-radius: 8px;
+}
+
+.contacto-card .form-control:focus{
+    border-color: var(--verde-principal);
+    box-shadow: 0 0 0 0.25rem rgba(31, 122, 85, 0.18);
+}
+
+.mapa-card{
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.mapa-embed iframe{
+    width: 100%;
+    height: 100%;
+}
+
+/* GLightbox: ampliar el área visible cuando una imagen se abre en modal */
+/* GLightbox: mejorar presentación de imagenes y captions */
+.glightbox-container,
+.glightbox-container * {
+    font-family: "Sour Gummy", "Trebuchet MS", sans-serif !important;
+}
+
+.glightbox-container .gslide-inner-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.glightbox-container .gslide-image img{
+    max-width: 92vw !important;
+    max-height: 88vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    transform: none !important;
+    transform-origin: center center;
+    display: block;
+}
+
+.glightbox-container .gslide-media,
+.glightbox-container .gslide-inner-content{
+    max-width: 92vw;
+    width: 100%;
+}
+
+/* Descripción / caption: que encaje al ancho de la imagen y use la tipografía */
+.glightbox-container .gslide-desc,
+.glightbox-container .gdesc,
+.glightbox-container .gslide-caption,
+.glightbox-container .glightbox-desc{
+    display: block;
+    width: 100%;
+    max-width: 92vw;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    background: rgba(0,0,0,0.52);
+    color: #ffffff;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+@media (max-width: 576px){
+    .glightbox-container .gslide-desc,
+    .glightbox-container .gdesc,
+    .glightbox-container .gslide-caption,
+    .glightbox-container .glightbox-desc{
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+}
