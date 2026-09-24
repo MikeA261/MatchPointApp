@@ -1,0 +1,21 @@
+[
+    {
+        "name": "maria",
+        "psw": "12345",
+        "location": "ostende"
+    },
+    [
+        {
+            "name": "mike",
+            "psw": "1234",
+            "location": "pinamar"
+        }
+    ],
+    [
+        {
+            "name": "walter",
+            "psw": "atlantico1234!",
+            "location": "Ostende"
+        }
+    ]
+]
