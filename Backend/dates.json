@@ -1,21 +1,10 @@
 [
     {
-        "name": "maria",
-        "psw": "12345",
-        "location": "ostende"
-    },
-    [
-        {
-            "name": "mike",
-            "psw": "1234",
-            "location": "pinamar"
-        }
-    ],
-    [
-        {
-            "name": "walter",
-            "psw": "atlantico1234!",
-            "location": "Ostende"
-        }
-    ]
+        "id": 69647674,
+        "name": "micahel",
+        "secname": "agreda",
+        "years": 30,
+        "psw": "123",
+        "location": "pinamar"
+    }
 ]
