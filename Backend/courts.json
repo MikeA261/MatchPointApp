@@ -15,18 +15,21 @@
             "adidas padel - av de las artes 587"
         ],
         "hs": [
-            "abierto de 9am a 20pm", "lunes a viernes"
+            "abierto de 9am a 20pm",
+            "lunes a viernes"
         ],
         "available": true
     },
-        {
+    {
         "id": 25665,
         "data": [
             "club deportivo pinamar - martin pescador 1210"
         ],
         "hs": [
-            "abierto de 10am a 20pm", "lunes a sabados"
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
         ],
-        "available": true
+        "available": false,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
     }
 ]

@@ -11,9 +11,9 @@ def loguin_funcion():
 def my_funcion():
     plantilla= """
     
-    ============================================
-            BIENVENIDOS A  MATCH POINT    
-    ============================================  
+    ===========================================================
+                    BIENVENIDOS A  MATCH POINT    
+    ===========================================================  
     -D Para registrarse ingrese 1
     -D Si ya tiene una cuenta ingrese 2
     -D Para ingresar como administrador ingrese 3

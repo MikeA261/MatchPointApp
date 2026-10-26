@@ -22,37 +22,37 @@ def validate_user(name: str,psw: str)->tuple:
     
     confirm = any(u.get("name") == name and u.get("psw") == psw for u in data) 
     user = [u for u in data if u.get("psw") == psw]      
-
-    return confirm,user
+    welcome(confirm,user)
+    
+    return  confirm,user
 
 def welcome(confirm: bool, user: list)-> None:
     
     if confirm:
         plantilla = """
-    =================================
-            BIENVENIDO {{ name | upper }}
-    =================================
+    ========================================================
+                BIENVENIDO {{ name | upper }}
+    ========================================================
     """
         mi_plantilla = Template (plantilla)
         print(mi_plantilla.render(user[0]))
+        menu(user) 
     else:
         plantilla = """
-    =================================
+    ========================================================
     X-ERROR-X LOS DATOS NO COINCIDEN     
-    =================================
+    ========================================================
     """
         mi_plantilla = Template (plantilla)
         print(mi_plantilla.render())
-        sys.exit()
-        
-    menu(user)     
+        sys.exit()    
     return
 
 def login_user():
     plantilla = """
-    =================================
-            MATCH POINT LOGIN
-    =================================
+    =======================================================
+            MATCH POINT     -----    LOGIN USUARIO
+    =======================================================
     Ingrese su nombre de usuario:
     """
     mi_plantilla = Template (plantilla)
@@ -60,13 +60,12 @@ def login_user():
     user= str(input("    "))
     
     plantilla2= """
-    =================================
-            MATCH POINT LOGIN
-    =================================
+    =======================================================
+            MATCH POINT     ----    LOGIN CONTRASEÑA
+    =======================================================
     Ingrese su contraseña: 
     """
     mi_plantilla = Template (plantilla2)
     print(mi_plantilla.render())
     psw= str(input("    "))
-    confirm = validate_user(user,psw)
-    welcome(confirm[0],confirm[1])
+    validate_user(user,psw)

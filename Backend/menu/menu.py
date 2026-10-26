@@ -1,6 +1,7 @@
 from jinja2 import Template
 from main import my_funcion
 from courts import read_courts
+from reserve import choose_court
 
 
 def court_reservation():
@@ -8,7 +9,7 @@ def court_reservation():
     court = read_courts(court)
     
     plantilla = """
-    --------------------------------
+    -----------------------------------------------------------------
                          
     Listado de canchas 
     {% set acumulador = namespace(contador=0) %}
@@ -16,11 +17,14 @@ def court_reservation():
         {% set acumulador.contador = acumulador.contador + 1 %}
     {{ acumulador.contador }} {{ info.data | join(',') | upper  }}
     HORARIOS: {{ info.hs | join(',') | upper }}
+    ESTADO: {{ 'DISPONIBLE' if info.available else 'NO DISPONIBLE' }}
     {% endfor %}
+    -----------------------------------------------------------------
+    INGRESE EL NUMERO DE LA CANCHA QUE DESEA ELEGIR:
     """
     mi_plantilla = Template(plantilla)
     print(mi_plantilla.render(cancha = court))
-
+    choose_court(court)
     return 
 
 def cancel_court():
@@ -31,16 +35,16 @@ def my_acount():
 
 def menu(user: list):
     plantilla = """
-    =================================
-                MATCH POINT
-    =================================
+    ===================================================================
+                MATCH POINT   ---------   JUEGA SEGURO Y SANO
+    ===================================================================
     {{ name | upper }} ¿Que necesitas?
     ---------------------------------- 
     1 Reservar una cancha
     2 Cancelar un turno
     3 Mi cuenta
     4 CERRAR SESIÓN
-    ---------------------------------- 
+    ------------------------------------------------------------------- 
     """
     mi_plantilla = Template(plantilla)
     print(mi_plantilla.render(user[0]))
