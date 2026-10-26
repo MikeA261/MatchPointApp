@@ -1,0 +1,42 @@
+[
+    {
+        "id": 91603929,
+        "name": "michael",
+        "psw": "123",
+        "user": {
+            "secname": "agreda",
+            "years": 30,
+            "location": "pinamar"
+        }
+    },
+    {
+        "id": 20681135,
+        "name": "walter",
+        "psw": "1970",
+        "user": {
+            "secname": "agreda",
+            "years": 56,
+            "location": "pinamar"
+        }
+    },
+    {
+        "id": 27179516,
+        "name": "walter",
+        "psw": "2003",
+        "user": {
+            "secname": "agreda",
+            "years": 23,
+            "location": "ostende"
+        }
+    },
+    {
+        "id": 92916438,
+        "name": "maria",
+        "psw": "9412",
+        "user": {
+            "secname": "garcia",
+            "years": 52,
+            "location": "pinamar"
+        }
+    }
+]

@@ -1,31 +1,36 @@
 from jinja2 import Template
-from admin import admin_courts
-from user import read_dates
-from user import new_account
-from user import write_dates
-from user import login
+from admins.admin import admin_courts
+from register import read_dates
+from register import new_account
+from register import write_dates
 
+def loguin_funcion():
+    from users.login import login_user
+    login_user()
 
-def print_template(dates: dict)-> None:
+def my_funcion():
+    plantilla= """
     
-    return
-
-def main():
+    ============================================
+            BIENVENIDOS A  MATCH POINT    
+    ============================================  
+    -D Para registrarse ingrese 1
+    -D Si ya tiene una cuenta ingrese 2
+    -D Para ingresar como administrador ingrese 3
+    Precione -1 para finalizar
+    """
+    mi_plantilla = Template (plantilla)
+    print(mi_plantilla.render())
     
-    print(f'Para registrarse ingrese 1 \nSi ya tiene una cuenta ingrese 2')
-    print(f'Para ingresar como administrador ingrese 3 \nPrecione -1 para finalizar')
-    opcion = int(input())
-    date = []
-    date = read_dates(date)
+    opcion = int(input("    "))
     match opcion:
         case 1:
-            dates= new_account(date)
+            date = []
+            date = read_dates(date)
+            dates = new_account(date)
             write_dates(dates)
-            print_template(dates)
-        case 2:                                      
-            user= str(input(f'Ingrese su Nombre de usuario:  '))
-            psw= int(input(f'Ingrese su contraseña:  '))
-            login(user,psw)
+        case 2:
+            loguin_funcion()                                      
         case 3:
             admin_courts()
         case -1:
@@ -33,6 +38,9 @@ def main():
         case _ :
             print("Opcion invalida!!!")
 
+
+def main():
+    my_funcion()
 
 if __name__ == '__main__':
     main()

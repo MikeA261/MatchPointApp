@@ -4,7 +4,7 @@ from courts import read_courts
 
 def admin_login(admin: list[dict])-> bool:
     
-    ADMIN= 'Matchpoint/Backend/admin.json'
+    ADMIN= 'Matchpoint/Backend/admins/admin.json'
     try:
         with open(ADMIN, "rt", encoding="utf-8-sig") as archivo:
             admin = json.load(archivo)
@@ -24,7 +24,7 @@ def admin_login(admin: list[dict])-> bool:
         "name": user,
         "psw" : psw
     }
-    
+
     for a in admin:
         confirm = a.get("id")
         if id == confirm:

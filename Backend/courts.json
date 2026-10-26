@@ -1,6 +1,32 @@
-[{
-    "id": 62654,
-    "name": "padel camp",
-    "location": "pinamar",
-    "disponible": true
-}]
+[
+    {
+        "id": 62654,
+        "data": [
+            "padel camp pinamar - av bunge 1587"
+        ],
+        "hs": [
+            "abierto de 9am a 20pm"
+        ],
+        "available": true
+    },
+    {
+        "id": 26265,
+        "data": [
+            "adidas padel - av de las artes 587"
+        ],
+        "hs": [
+            "abierto de 9am a 20pm", "lunes a viernes"
+        ],
+        "available": true
+    },
+        {
+        "id": 25665,
+        "data": [
+            "club deportivo pinamar - martin pescador 1210"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm", "lunes a sabados"
+        ],
+        "available": true
+    }
+]
