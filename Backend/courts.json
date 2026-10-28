@@ -2,28 +2,113 @@
     {
         "id": 62654,
         "data": [
-            "padel camp pinamar - av bunge 1587"
+            "open house pádel - calle jason 1044"
+        ],
+        "phone": [
+            "02254 61-1686"
         ],
         "hs": [
             "abierto de 9am a 20pm"
         ],
-        "available": true
+        "available": true,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
     },
     {
         "id": 26265,
         "data": [
-            "adidas padel - av de las artes 587"
+            "lasaigues pádel pinamar - av españa esquina esparza"
         ],
+        "phone": ["no disponible"],
         "hs": [
             "abierto de 9am a 20pm",
             "lunes a viernes"
         ],
-        "available": true
+        "available": true,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
     },
     {
         "id": 25665,
         "data": [
-            "club deportivo pinamar - martin pescador 1210"
+            "a pádel - av arquitecto jorge bunge 1477"
+        ],
+        "phone": [
+            "02254 44-7023"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
+        ],
+        "available": true,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+    },
+    {
+        "id": 25666,
+        "data": [
+            "aragone padel - primera de julio 1978  1218"
+        ],
+        "phone": [
+            "02254 44-7023"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
+        ],
+        "available": true,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+    },
+    {
+        "id": 25667,
+        "data": [
+            "paddle 1 - de los patos 1665"
+        ],
+        "phone": [
+            "02254 447510"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
+        ],
+        "available": false,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+    },
+    {
+        "id": 25668,
+        "data": [
+            "tennis y pádel point pinamar - de las artes y de los aromos"
+        ],
+        "phone": [
+            "no disponible"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
+        ],
+        "available": false,
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+    },
+    {
+        "id": 25669,
+        "data": [
+            "canchas de pádel techadas roja padel - garay 2477"
+        ],
+        "phone": [
+            "02254 61-2909"
+        ],
+        "hs": [
+            "abierto de 10am a 20pm",
+            "lunes a sabados"
+        ],
+        "available": false,
+        "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
+        "courts": 3
+    },
+    {
+        "id": 25670,
+        "data": [
+            "green pádel - espora y aguila"
+        ],
+        "phone": [
+            "02254 41-4361"
         ],
         "hs": [
             "abierto de 10am a 20pm",

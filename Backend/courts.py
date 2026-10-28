@@ -1,7 +1,7 @@
 import json
 
 def read_courts(courts: list)->list[dict]:
-    COURTS= "Matchpoint/Backend/courts.json"
+    COURTS= "PadelApp/MatchPointApp/Backend/courts.json"
     try:
         with open(COURTS, "rt", encoding="utf-8_sig") as archivo:
             courts = json.load(archivo)

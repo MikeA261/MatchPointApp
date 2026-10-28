@@ -1,16 +1,17 @@
 from jinja2 import Template
 from admins.admin import admin_courts
-from register import read_dates
-from register import new_account
-from register import write_dates
 
 def loguin_funcion():
     from users.login import login_user
     login_user()
 
+def register_funcion():
+    from register import new_account
+    new_account()
+
 def my_funcion():
-    plantilla= """
-    
+    try:    
+        plantilla= """
     ===========================================================
                     BIENVENIDOS A  MATCH POINT    
     ===========================================================  
@@ -19,25 +20,27 @@ def my_funcion():
     -D Para ingresar como administrador ingrese 3
     Precione -1 para finalizar
     """
-    mi_plantilla = Template (plantilla)
-    print(mi_plantilla.render())
+        mi_plantilla = Template (plantilla)
+        print(mi_plantilla.render())
     
-    opcion = int(input("    "))
-    match opcion:
-        case 1:
-            date = []
-            date = read_dates(date)
-            dates = new_account(date)
-            write_dates(dates)
-        case 2:
-            loguin_funcion()                                      
-        case 3:
-            admin_courts()
-        case -1:
-             print(f'Gracias, hasta luego')
-        case _ :
-            print("Opcion invalida!!!")
-
+        opcion = int(input("    "))
+        match opcion:
+            case 1:
+                register_funcion()
+            case 2:
+                loguin_funcion()                                      
+            case 3:
+                admin_courts()
+            case -1:
+                print(f'Gracias, hasta luego')
+            case _ :
+                print("    OPCION NO VALIDA")
+                main()      
+    except ValueError:
+        print("    OPCION NO VALIDA")
+        main()
+    finally:
+        pass
 
 def main():
     my_funcion()

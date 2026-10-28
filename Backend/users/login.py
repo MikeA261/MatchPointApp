@@ -1,10 +1,10 @@
 import json
-import sys
 from jinja2 import Template
 from menu.menu import menu
+from main import my_funcion
 
 def read_dates(dates: list)->list:  
-    USER='Matchpoint/Backend/users/user.json'
+    USER='PadelApp/MatchPointApp/Backend/users/user.json'
     try: 
         with open(USER, 'rt', encoding='utf-8-sig') as archivo:
             dates = json.load(archivo)
@@ -16,15 +16,14 @@ def read_dates(dates: list)->list:
     finally:
        pass
        
-def validate_user(name: str,psw: str)->tuple:
+def validate_user(usrname: str,psw: str)->tuple:
     data= []
     data = read_dates(data)
     
-    confirm = any(u.get("name") == name and u.get("psw") == psw for u in data) 
-    user = [u for u in data if u.get("psw") == psw]      
+    confirm = any(u.get("username") == usrname and u.get("psw") == psw for u in data) 
+    user = [u for u in data if u.get("psw") == psw and u.get("username") == usrname]      
     welcome(confirm,user)
-    
-    return  confirm,user
+    return
 
 def welcome(confirm: bool, user: list)-> None:
     
@@ -40,12 +39,12 @@ def welcome(confirm: bool, user: list)-> None:
     else:
         plantilla = """
     ========================================================
-    X-ERROR-X LOS DATOS NO COINCIDEN     
+                X-ERROR-X LOS DATOS NO COINCIDEN     
     ========================================================
     """
         mi_plantilla = Template (plantilla)
         print(mi_plantilla.render())
-        sys.exit()    
+        my_funcion()  
     return
 
 def login_user():
@@ -57,7 +56,7 @@ def login_user():
     """
     mi_plantilla = Template (plantilla)
     print(mi_plantilla.render())
-    user= str(input("    "))
+    user= str(input("    ")).lower()
     
     plantilla2= """
     =======================================================

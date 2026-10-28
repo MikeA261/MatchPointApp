@@ -1,6 +1,7 @@
 [
     {
         "id": 91603929,
+        "username": "michael261",
         "name": "michael",
         "psw": "123",
         "user": {
@@ -11,6 +12,7 @@
     },
     {
         "id": 20681135,
+        "username": "walter123",
         "name": "walter",
         "psw": "1970",
         "user": {
@@ -21,6 +23,7 @@
     },
     {
         "id": 27179516,
+        "username": "walter01",
         "name": "walter",
         "psw": "2003",
         "user": {
@@ -31,11 +34,56 @@
     },
     {
         "id": 92916438,
+        "username": "maria123",
         "name": "maria",
         "psw": "9412",
         "user": {
             "secname": "garcia",
             "years": 52,
+            "location": "pinamar"
+        }
+    },
+    {
+        "id": 363713859,
+        "username": "laucha",
+        "name": "lautaro",
+        "psw": "123",
+        "user": {
+            "secname": "merlo",
+            "years": 31,
+            "location": "ostende"
+        }
+    },
+    {
+        "id": 258574202,
+        "username": "alejandro899",
+        "name": "alejandro",
+        "psw": "123",
+        "user": {
+            "secname": "principi",
+            "years": 51,
+            "location": "pinamar"
+        }
+    },
+    {
+        "id": 227968137,
+        "username": "iccc26",
+        "name": "celina copa",
+        "psw": "iccc2026",
+        "user": {
+            "secname": "cerezo",
+            "years": 24,
+            "location": "pinamar"
+        }
+    },
+    {
+        "id": 502134902,
+        "username": "iccc26",
+        "name": "celina copa",
+        "psw": "iccc2026",
+        "user": {
+            "secname": "cerezo",
+            "years": 24,
             "location": "pinamar"
         }
     }
