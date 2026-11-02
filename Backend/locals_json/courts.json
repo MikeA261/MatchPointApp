@@ -11,20 +11,30 @@
             "abierto de 9am a 20pm"
         ],
         "available": true,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": true,
+        "trainer": false
     },
     {
         "id": 26265,
         "data": [
             "lasaigues pádel pinamar - av españa esquina esparza"
         ],
-        "phone": ["no disponible"],
+        "phone": [
+            "no disponible"
+        ],
         "hs": [
             "abierto de 9am a 20pm",
             "lunes a viernes"
         ],
         "available": true,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
+        "courts": 3,
+        "walls": "cemento",
+        "shop": true,
+        "trainer": true
     },
     {
         "id": 25665,
@@ -39,7 +49,11 @@
             "lunes a sabados"
         ],
         "available": true,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": true,
+        "trainer": false
     },
     {
         "id": 25666,
@@ -54,7 +68,11 @@
             "lunes a sabados"
         ],
         "available": true,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": false,
+        "trainer": true
     },
     {
         "id": 25667,
@@ -100,7 +118,10 @@
         ],
         "available": false,
         "info": "Este predio de padel cuenta con una tienda de accesorios, buena ubicacón y atención.",
-        "courts": 3
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": true,
+        "trainer": true
     },
     {
         "id": 25670,

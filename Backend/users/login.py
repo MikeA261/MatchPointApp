@@ -1,70 +1,69 @@
-import json
+#IMPORTACION DE LIBRERÍAS
 from jinja2 import Template
-from menu.menu import menu
-from main import my_funcion
 
-def read_dates(dates: list)->list:  
-    USER='PadelApp/MatchPointApp/Backend/users/user.json'
-    try: 
-        with open(USER, 'rt', encoding='utf-8-sig') as archivo:
-            dates = json.load(archivo)
-            return dates
-    except FileNotFoundError:
-        print(f'El archino no exiiste')
-    except(FileExistsError):
-        print(f"El archivo no existe")
-    finally:
-       pass
+#IMPORTACIONES DE ARCHIVOS LOCALES
+from menu.menu import menu
+from main import my_funtion
+from reader import read_user
        
-def validate_user(usrname: str,psw: str)->tuple:
-    data= []
-    data = read_dates(data)
-    
-    confirm = any(u.get("username") == usrname and u.get("psw") == psw for u in data) 
+def save_user(usrname: str,psw: str, data: list)->tuple:
     user = [u for u in data if u.get("psw") == psw and u.get("username") == usrname]      
-    welcome(confirm,user)
+    welcome(user)
     return
 
-def welcome(confirm: bool, user: list)-> None:
-    
-    if confirm:
-        plantilla = """
-    ========================================================
-                BIENVENIDO {{ name | upper }}
-    ========================================================
+def welcome(user: list)-> None:
+    plantilla = """
+========================================================
+            BIENVENIDO: {{ name | upper }}
+========================================================
     """
-        mi_plantilla = Template (plantilla)
-        print(mi_plantilla.render(user[0]))
-        menu(user) 
-    else:
-        plantilla = """
-    ========================================================
-                X-ERROR-X LOS DATOS NO COINCIDEN     
-    ========================================================
-    """
-        mi_plantilla = Template (plantilla)
-        print(mi_plantilla.render())
-        my_funcion()  
+    mi_plantilla = Template (plantilla)
+    print(mi_plantilla.render(user[0]))
+    menu(user) 
     return
 
 def login_user():
+    data = read_user()
+    
     plantilla = """
-    =======================================================
-            MATCH POINT     -----    LOGIN USUARIO
-    =======================================================
-    Ingrese su nombre de usuario:
+=======================================================
+        MATCH POINT     -----    LOGIN USUARIO
+=======================================================
+Ingrese su nombre de usuario:
     """
     mi_plantilla = Template (plantilla)
     print(mi_plantilla.render())
-    user= str(input("    ")).lower()
+    user= str(input("")).lower()
     
-    plantilla2= """
-    =======================================================
-            MATCH POINT     ----    LOGIN CONTRASEÑA
-    =======================================================
-    Ingrese su contraseña: 
+    confirm = True
+    while confirm:
+        confirm = any(u for u in data if u.get("username") == user)
+        match confirm:
+            case True:
+                tryes = 3
+                while tryes != 0:
+                    plantilla2= """
+=======================================================
+        MATCH POINT     ----    LOGIN CONTRASEÑA
+=======================================================
+Ingrese su contraseña: 
     """
-    mi_plantilla = Template (plantilla2)
-    print(mi_plantilla.render())
-    psw= str(input("    "))
-    validate_user(user,psw)
+                    mi_plantilla = Template (plantilla2)
+                    print(mi_plantilla.render())
+                    psw= str(input(""))
+                    confirmpsw = any(u for u in data if u.get("psw") == psw)
+                    if confirmpsw:
+                        save_user(user,psw,data)
+                        confirm = False
+                        break
+                    else:
+                        print("LA CONTRASEÑA ES ERRONEÁ - INTENTE DE NUEVO :  ")
+                        tryes -= 1
+                    if tryes == 0:
+                        print("-----------------------------------------------------------")
+                        print("             X - DEMASIADOS INTENTOS - X ")
+                        print("-----------------------------------------------------------")
+                        my_funtion() 
+            case False:
+                print("EL USUARIO NO EXISTE - INTENTE DE NUEVO :  ")
+                login_user()

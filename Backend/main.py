@@ -1,7 +1,7 @@
 from jinja2 import Template
-from admins.admin import admin_courts
+from admins.admin import admin_menu_login
 
-def loguin_funcion():
+def login_funcion():
     from users.login import login_user
     login_user()
 
@@ -9,41 +9,43 @@ def register_funcion():
     from register import new_account
     new_account()
 
-def my_funcion():
+def my_funtion():
     try:    
         plantilla= """
-    ===========================================================
-                    BIENVENIDOS A  MATCH POINT    
-    ===========================================================  
-    -D Para registrarse ingrese 1
-    -D Si ya tiene una cuenta ingrese 2
-    -D Para ingresar como administrador ingrese 3
-    Precione -1 para finalizar
+==============================================================
+                  BIENVENIDOS A  MATCH POINT    
+==============================================================  
+-D 1 CREAR NUEVA CUENTA
+-D 2 INICIAR SESIÓN
+-D 3 INGRESAR COMO ADMINISTRADOR
+ X 4 SALIR
     """
         mi_plantilla = Template (plantilla)
         print(mi_plantilla.render())
     
-        opcion = int(input("    "))
+        opcion = int(input(""))
         match opcion:
             case 1:
                 register_funcion()
             case 2:
-                loguin_funcion()                                      
+                login_funcion()                                      
             case 3:
-                admin_courts()
-            case -1:
-                print(f'Gracias, hasta luego')
-            case _ :
-                print("    OPCION NO VALIDA")
+                admin_menu_login()
+            case 4:
+                print(f'HASTA LUEGO')
+            case  _ :
+                print("-----------------------------------------------------")
+                print("            x - OPCION FUERA DE RANGO - x            ")
+                print("-----------------------------------------------------")
                 main()      
     except ValueError:
-        print("    OPCION NO VALIDA")
+        print("----------------------------------------------------")
+        print("         X - POR FAVOR USE SOLO NUMEROS - X         ")
+        print("----------------------------------------------------")
         main()
-    finally:
-        pass
-
+        
 def main():
-    my_funcion()
+    my_funtion()
 
 if __name__ == '__main__':
     main()

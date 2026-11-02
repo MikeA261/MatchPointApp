@@ -1,0 +1,16 @@
+[
+    {
+        "id": 29945810,
+        "dni": 12345678,
+        "name": "juan",
+        "psw": "123asd",
+        "court": 25666
+    },
+    {
+        "id": 9567427,
+        "dni": null,
+        "name": "michael",
+        "psw": "123asd",
+        "court": 25666
+    }
+]

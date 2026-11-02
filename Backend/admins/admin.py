@@ -1,52 +1,143 @@
-import json
-from courts import read_courts
+from jinja2 import Template
+import random as rn
 
+from reader import read_admin
+from reader import read_courts
+from writer import write_admin
 
-def admin_login(admin: list[dict])-> bool:
-    
-    ADMIN= 'Matchpoint/Backend/admins/admin.json'
+def validate_dni()->int:
+    data = read_admin()
     try:
-        with open(ADMIN, "rt", encoding="utf-8-sig") as archivo:
-            admin = json.load(archivo)
-    except FileNotFoundError:
-        print("ERROR... archivo no encontrado")
-    except FileExistsError:
-        print("ERROR... archivo no existe")
+        while True:
+            dni= int(input("dni:  "))
+            duplicate = any(u.get("dni") == dni for u in data)
+            if duplicate:
+                print("X - DNI YA EXISTENTE - X")
+            else:
+                large = list(str(dni))
+                if len(large) >= 7 and len(large) <= 8: 
+                    return dni
+                else:
+                    print("X - DNI INVALIDO - X")
+    except(ValueError):
+        print("X - ERROR DNI - USE SOLO NUMEROS - X")
+        validate_dni()
     finally:
-        admin
-       
-    user= str(input(f"Ingrese su nombre ->  "))
-    psw= str(input(f"Ingrese su contraseña ->  "))
-    id = int(input("Ingrese su ID de administrador ->  "))
-    
-    adminl = {
-        "id": id,
-        "name": user,
-        "psw" : psw
-    }
+        pass
 
-    for a in admin:
-        confirm = a.get("id")
-        if id == confirm:
-            userad = a
+def validate_name():
+    while True:
+        name = str(input("INGRESE SU NOMBRE:  ")).strip()
+        if name.isalpha():
+            return name
         else:
-            raise(ValueError("ERROR!!!!........En el ID"))
-    
-    validate = adminl == userad  
-    
-    return validate
+            print("X - EL NOMBRE SOLO DEBE CONTENER LETRAS - X")
+            
 
-def court_opcion():
-    return
+def validate_psw():
+    while True:
+        psw = str(input("psw:  "))
+        large = list(psw)
+        contains_num = any(i.isalpha() for i in psw) 
+        contains_let= any(i.isdigit() for i in psw)
+        if len(large) == 6:
+            if contains_num and contains_let:
+                return psw
+            else:
+                print("X - LA CONTRASEÑA DEBE CONTENER AL MENOS UN NÚMERO - X")
+        elif len(large) > 6:
+            print("X - ERROR - CONTRASEÑA DEMASIADO LARGA - X")
+        else:
+            print("X - ERROR - CONTRASEÑA DEMASIADO CORTA - X")
 
-
-def admin_courts():
+def choose_court():
+    data = read_courts()
+    try:
+        while True:
+            idc = int(input("INGRESE EL ID DE LA EMPRESA:  "))
+            confirm = any(u.get("id") == idc for u in data)
+            if confirm:
+                court = [i for i in data if i["id"] == idc]
+                plantilla = """
+----------------------------------------------------------------
+                    EMPRESA SELECCIONADA
+----------------------------------------------------------------
+{% for info in cancha -%}
+{{ info.data | join(',') | upper  }}
+-----------------------------------------------------------------
+{% endfor %}
+"""
+                mi_plantilla = Template(plantilla)
+                print(mi_plantilla.render(cancha = court))
+                return idc
+            else:
+                print("X - ID NO VÁLIDO - X")
+    except(ValueError):
+        print("X - INGRESE SOLO NÚMEROS - X")
+        choose_court()
+    finally:
+            pass        
+            
+            
     
-    admin = []
-    admin = admin_login(admin)
-    print("Bienvenido al sistema de administradores")
-    if admin:
-        datec = []
-        datec = read_courts(datec)
-        court_opcion()
+def back_menu():
+    from main import my_funtion
+    my_funtion()
+
+def login_admin():
+    return print("ok")
+
+
+def register_admin():
+    dni= validate_dni()
+    name = validate_name()
+    psw = validate_psw()
+    id = rn.randint(1_000_000, 99_000_000)
+    idc = choose_court()
+    
+    new_admin = { "id": id,
+                 "dni" : dni,
+                 "name": name,
+                 "psw" : psw,
+                 "court": idc
+    } 
+    
+    data = read_admin()
+    data.append(new_admin)
+    write_admin(data)
+    admin_menu_login()
+    
+    return print("ok")
+
+def admin_menu_login():
+    try:
+        plantilla= """
+--------------------------------------------------------
+                LOGIN ADMINISTRATIVO
+--------------------------------------------------------
+1 REGISTRAR NUEVO ADMIN
+2 INICIAR SESIÓN
+3 SALIR
+
+    """
+        mi_plantilla = Template(plantilla)
+        print(mi_plantilla.render())
+        opcion = int(input())
+        match opcion:
+            case 1:
+                register_admin()         
+            case 2:
+                login_admin()
+            case 3:
+                back_menu()
+            case _ :
+                print("-----------------------------------------------------")
+                print("            x - OPCION FUERA DE RANGO - x            ")
+                print("-----------------------------------------------------")  
+                admin_menu_login() 
+    except(ValueError):
+            print("X - ERROR MENU - INGRESE SOLO NUMEROS - X")
+            admin_menu_login()
+    finally:
+        pass
     
