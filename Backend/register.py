@@ -1,5 +1,9 @@
 #IMPORTACION DE LIBRERIÁS
+# este apartado relacionado con main.py controla el registro 
+# Ajuste reciente: informa errores de lectura/escritura y vuelve al menú con
+# el nombre correcto de la función.
 import json
+
 from jinja2 import Template
 import random as rn
 
@@ -40,7 +44,7 @@ def psw_comparative():
             confirm = True
     return psw
 
-def new_account():
+def new_account() -> list[dict] | None:
     """Esta funcion recibe todos los datos del usuario que se 
        piden en el registro, para la creación de una nueva cuenta.
        Luego se escriben los datos en el archivo json
@@ -50,7 +54,11 @@ def new_account():
        
        Postcondición: retorna una lista con los datos ingresados  
     """
-    dates = read_user()
+    try:
+        dates = read_user()
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(f"No se pudieron cargar los usuarios: {error}")
+        return None
     plantilla = """
 =========================================================
                 MATCH POINT  REGISTRO
@@ -76,7 +84,11 @@ def new_account():
         "location": location}
     }
     dates.append(newUser)
-    write_user(dates)
+    try:
+        write_user(dates)
+    except OSError as error:
+        print(f"No se pudo guardar el registro: {error}")
+        return None
     platilla = """
     
     
@@ -89,5 +101,5 @@ def new_account():
     """
     tempalte = Template(platilla)
     print(tempalte.render(newUser))
-    my_funcion()
+    my_funtion()
     return dates

@@ -1,3 +1,6 @@
+# cotrola el apartado de admin 
+import json
+
 from jinja2 import Template
 import random as rn
 
@@ -5,6 +8,7 @@ from reader import read_admin
 from reader import read_courts
 from writer import write_admin
 
+# Pide un DNI que no este registrado y que tenga entre 7 y 8 digitos.
 def validate_dni()->int:
     data = read_admin()
     try:
@@ -25,6 +29,7 @@ def validate_dni()->int:
     finally:
         pass
 
+# Solicita un nombre compuesto solo por letras.
 def validate_name():
     while True:
         name = str(input("INGRESE SU NOMBRE:  ")).strip()
@@ -34,6 +39,7 @@ def validate_name():
             print("X - EL NOMBRE SOLO DEBE CONTENER LETRAS - X")
             
 
+# Solicita una contrasena de exactamente 6 caracteres, con letras y numeros.
 def validate_psw():
     while True:
         psw = str(input("psw:  "))
@@ -50,6 +56,7 @@ def validate_psw():
         else:
             print("X - ERROR - CONTRASEÑA DEMASIADO CORTA - X")
 
+# Muestra las empresas/canchas registradas y devuelve el ID elegido.
 def choose_court():
     data = read_courts()
     try:
@@ -81,13 +88,42 @@ def choose_court():
             
     
 def back_menu():
+    # Importacion local para evitar una dependencia circular al cargar el modulo.
     from main import my_funtion
     my_funtion()
 
-def login_admin():
-    return print("ok")
+# Valida el acceso del administrador con DNI y contrasena, sin abrir aun otro menu.
+def login_admin() -> dict | None:
+    try:
+        data = read_admin()
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(f"No se pudieron cargar los administradores: {error}")
+        return None
 
+    dni = input("DNI: ").strip()
+    psw = input("Contraseña: ")
+    if not dni.isdigit() or not 7 <= len(dni) <= 8:
+        print("DNI o contraseña incorrectos.")
+        return None
 
+    admin = next(
+        (
+            item
+            for item in data
+            if item.get("dni") is not None
+            and str(item.get("dni")) == dni
+            and item.get("psw") == psw
+        ),
+        None,
+    )
+    if admin is None:
+        print("DNI o contraseña incorrectos.")
+        return None
+
+    print(f"INICIO DE SESIÓN CORRECTO. BIENVENIDO, {admin.get('name', '').upper()}.")
+    return admin
+
+# Registra un administrador, lo asocia a una cancha y guarda los datos en JSON.
 def register_admin():
     dni= validate_dni()
     name = validate_name()
@@ -109,6 +145,7 @@ def register_admin():
     
     return print("ok")
 
+# Muestra las opciones de acceso administrativo y deriva a la accion elegida.
 def admin_menu_login():
     try:
         plantilla= """

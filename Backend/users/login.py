@@ -1,69 +1,81 @@
-#IMPORTACION DE LIBRERÍAS
+# este controla el login del main.py cuando iniciamos sesion
+# Ajuste reciente: informa si no puede cargar los usuarios y evita continuar
+# con datos inválidos.
+import json
+
 from jinja2 import Template
 
-#IMPORTACIONES DE ARCHIVOS LOCALES
-from menu.menu import menu
 from main import my_funtion
+from menu.menu import menu
 from reader import read_user
-       
-def save_user(usrname: str,psw: str, data: list)->tuple:
-    user = [u for u in data if u.get("psw") == psw and u.get("username") == usrname]      
-    welcome(user)
-    return
 
-def welcome(user: list)-> None:
+
+def save_user(usrname: str, psw: str, data: list[dict]) -> dict | None:
+    user = next(
+        (
+            item
+            for item in data
+            if item.get("username") == usrname and item.get("psw") == psw
+        ),
+        None,
+    )
+    if user is not None:
+        welcome([user])
+    return user
+
+
+def welcome(user: list[dict]) -> None:
     plantilla = """
 ========================================================
             BIENVENIDO: {{ name | upper }}
 ========================================================
     """
-    mi_plantilla = Template (plantilla)
-    print(mi_plantilla.render(user[0]))
-    menu(user) 
-    return
+    print(Template(plantilla).render(user[0]))
+    menu(user)
 
-def login_user():
-    data = read_user()
-    
-    plantilla = """
+
+def login_user() -> None:
+    try:
+        data = read_user()
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(f"No se pudieron cargar los usuarios: {error}")
+        return
+
+    while True:
+        plantilla = """
 =======================================================
         MATCH POINT     -----    LOGIN USUARIO
 =======================================================
 Ingrese su nombre de usuario:
-    """
-    mi_plantilla = Template (plantilla)
-    print(mi_plantilla.render())
-    user= str(input("")).lower()
-    
-    confirm = True
-    while confirm:
-        confirm = any(u for u in data if u.get("username") == user)
-        match confirm:
-            case True:
-                tryes = 3
-                while tryes != 0:
-                    plantilla2= """
+        """
+        print(Template(plantilla).render())
+        username = input("").strip().lower()
+        usuarios = [user for user in data if user.get("username") == username]
+        if not usuarios:
+            print("EL USUARIO NO EXISTE.")
+            continue
+
+        intentos = 3
+        while intentos > 0:
+            plantilla = """
 =======================================================
         MATCH POINT     ----    LOGIN CONTRASEÑA
 =======================================================
-Ingrese su contraseña: 
-    """
-                    mi_plantilla = Template (plantilla2)
-                    print(mi_plantilla.render())
-                    psw= str(input(""))
-                    confirmpsw = any(u for u in data if u.get("psw") == psw)
-                    if confirmpsw:
-                        save_user(user,psw,data)
-                        confirm = False
-                        break
-                    else:
-                        print("LA CONTRASEÑA ES ERRONEÁ - INTENTE DE NUEVO :  ")
-                        tryes -= 1
-                    if tryes == 0:
-                        print("-----------------------------------------------------------")
-                        print("             X - DEMASIADOS INTENTOS - X ")
-                        print("-----------------------------------------------------------")
-                        my_funtion() 
-            case False:
-                print("EL USUARIO NO EXISTE - INTENTE DE NUEVO :  ")
-                login_user()
+Ingrese su contraseña:
+            """
+            print(Template(plantilla).render())
+            password = input("")
+            usuario = next(
+                (user for user in usuarios if user.get("psw") == password),
+                None,
+            )
+            if usuario is not None:
+                welcome([usuario])
+                return
+
+            intentos -= 1
+            print("LA CONTRASEÑA ES INCORRECTA.")
+
+        print("DEMASIADOS INTENTOS.")
+        my_funtion()
+        return

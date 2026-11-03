@@ -1,3 +1,5 @@
+#desde aqui se ejecuta para que funcione  todo 
+# ejecutarlo desde otro lado no tirara nada 
 from jinja2 import Template
 from admins.admin import admin_menu_login
 

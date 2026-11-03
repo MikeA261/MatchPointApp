@@ -1,0 +1,20 @@
+[
+    {
+        "user_id": 363713859,
+        "username": "laucha",
+        "court_id": 25666,
+        "court_name": "aragone padel - primera de julio 1978  1218",
+        "date": "2000-01-21",
+        "time": "00:00",
+        "status": "cancelled"
+    },
+    {
+        "user_id": 363713859,
+        "username": "laucha",
+        "court_id": 62654,
+        "court_name": "open house pádel - calle jason 1044",
+        "date": "2008-01-22",
+        "time": "19:00",
+        "status": "cancelled"
+    }
+]
