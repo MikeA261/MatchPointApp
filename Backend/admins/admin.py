@@ -1,9 +1,12 @@
+#IMPORTACIONES DE LIBRERIAS
 from jinja2 import Template
 import random as rn
-
+#IMPORTACIONES DE ARCHIVOS LOCALES
 from reader import read_admin
 from reader import read_courts
 from writer import write_admin
+from menu.menu_a import menu_a
+    
 
 def validate_dni()->int:
     data = read_admin()
@@ -33,7 +36,6 @@ def validate_name():
         else:
             print("X - EL NOMBRE SOLO DEBE CONTENER LETRAS - X")
             
-
 def validate_psw():
     while True:
         psw = str(input("psw:  "))
@@ -77,16 +79,103 @@ def choose_court():
         choose_court()
     finally:
             pass        
-            
-            
-    
+               
 def back_menu():
     from main import my_funtion
     my_funtion()
 
-def login_admin():
-    return print("ok")
+def confirm_a_name(data):
+    while True:
+        a_name = str(input("INGRESE SU NOMBRE:  ")).strip().lower()
+        validate = a_name.isalpha()  
+        if validate:
+            exist_name = any(a for a in data if a["name"] == a_name)
+            if exist_name:
+                return a_name
+            else:
+                plantilla = """
+-------------------------------------------------
+          X - EL NOMBRE NO EXISTE - X            
+-------------------------------------------------
+1 REINTENTAR
+2 SALIR    
+                """
+                mi_plantilla = Template(plantilla)
+                print(mi_plantilla.render())
+                option = str(input())
+                match option:
+                    case "1":
+                        login_admin()
+                    case "2":
+                        admin_menu_login()
+        else:
+            plantilla = """
+-------------------------------------------------
+X - NOMBRE NO VALIDO   -  INGRESE SOLO LETRAS - X
+-------------------------------------------------
+            """
+            mi_plantilla = Template(plantilla)
+            print(mi_plantilla.render())
 
+def confirm_psw(data):
+    while True:
+        psw = str(input("INGRESE SU CONTRASEÑA:  ")).strip().lower()
+        large = list(psw)
+        if len(large) == 6:
+            contains_num = any(i.isalpha() for i in psw) 
+            contains_let= any(i.isdigit() for i in psw)
+            exist_psw = any(a for a in data if a["psw"] == psw)
+            if contains_let and contains_num and exist_psw:
+                return psw
+            else:
+                print("X - CONTRASEÑA NO VÁLIDA - X")
+        else:
+            print("X - CONTRASEÑA NO VÁLIDA - X")
+            plantilla = """
+-------------------------------------------------
+          X - CONTRASEÑA NO VALIDA - X            
+-------------------------------------------------
+1 REINTENTAR
+2 SALIR    
+                """
+            mi_plantilla = Template(plantilla)
+            print(mi_plantilla.render())
+            option = str(input())
+            match option:
+                case "1":
+                    login_admin()
+                case "2":
+                    admin_menu_login()
+                    
+def login_admin()->None:
+    """ Función llama a dos funciones que validan los sus datos de ingresados.
+        Una vez validados, se buscan los datos del administrador que ingresa,
+        junto con su empresa correspondiente. Por último se imprime por consola 
+        un saludo de binevenida al administrador y la empresa asociada.  
+
+        Pre: Debe tener cargado los datos de los administradores y empresas 
+        que se encuentran en los archivos json.
+        
+        Post: No retorna nada.
+
+    """
+    
+    data = read_admin()
+    court = read_courts()
+    a_name = confirm_a_name(data)
+    a_psw = confirm_psw(data)
+    admin = next((a for a in data if a["psw"] == a_psw and a["name"] == a_name), None)
+    selec_court = next((a for a in court if a["id"] == admin.get("court")), None)
+    plantilla = """
+----------------------------------------------------------
+    BIENVENIDO {{ administrator.name | upper }}
+    EMPRESA : {{empress.data | join(",") |upper }}
+----------------------------------------------------------
+        """
+    mi_plantilla = Template(plantilla)
+    print(mi_plantilla.render(administrator = admin, empress = selec_court))
+    menu_a(selec_court)
+    return
 
 def register_admin():
     dni= validate_dni()

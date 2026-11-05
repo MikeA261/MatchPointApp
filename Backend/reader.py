@@ -14,7 +14,6 @@ def read_courts()->list[dict]:
     finally:
         pass
         
-        
 def read_user()->list:
     dates = []  
     USER= 'PadelApp/MatchPointApp/Backend/locals_json/user.json'
@@ -29,7 +28,6 @@ def read_user()->list:
     finally:
        dates
        
-    
 def read_admin()->list:
     admin= []
     ADMIN= 'PadelApp/MatchPointApp/Backend/locals_json/admin.json'

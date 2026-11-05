@@ -1,5 +1,4 @@
 #IMPORTACION DE LIBRERIÁS
-import json
 from jinja2 import Template
 import random as rn
 
@@ -89,5 +88,5 @@ def new_account():
     """
     tempalte = Template(platilla)
     print(tempalte.render(newUser))
-    my_funcion()
+    my_funtion()
     return dates

@@ -2,7 +2,10 @@
     {
         "id": 62654,
         "data": [
-            "open house pádel - calle jason 1044"
+            "open house pádel"
+        ],
+        "street": [
+            "espora y aguila"
         ],
         "phone": [
             "02254 61-1686"
@@ -20,7 +23,10 @@
     {
         "id": 26265,
         "data": [
-            "lasaigues pádel pinamar - av españa esquina esparza"
+            "lasaigues pádel pinamar"
+        ],
+        "street": [
+            "av españa esquina esparza"
         ],
         "phone": [
             "no disponible"
@@ -39,7 +45,10 @@
     {
         "id": 25665,
         "data": [
-            "a pádel - av arquitecto jorge bunge 1477"
+            "a pádel"
+        ],
+        "street": [
+            "av arquitecto jorge bunge 1477"
         ],
         "phone": [
             "02254 44-7023"
@@ -58,7 +67,10 @@
     {
         "id": 25666,
         "data": [
-            "aragone padel - primera de julio 1978  1218"
+            "aragone padel"
+        ],
+        "street": [
+            "primera de julio 1978  1218"
         ],
         "phone": [
             "02254 44-7023"
@@ -77,7 +89,10 @@
     {
         "id": 25667,
         "data": [
-            "paddle 1 - de los patos 1665"
+            "paddle 1"
+        ],
+        "street": [
+            "de los patos 1665"
         ],
         "phone": [
             "02254 447510"
@@ -87,12 +102,19 @@
             "lunes a sabados"
         ],
         "available": false,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": false,
+        "trainer": true
     },
     {
         "id": 25668,
         "data": [
-            "tennis y pádel point pinamar - de las artes y de los aromos"
+            "tennis y pádel point pinamar"
+        ],
+        "street": [
+            "de las artes y de los aromos"
         ],
         "phone": [
             "no disponible"
@@ -102,12 +124,19 @@
             "lunes a sabados"
         ],
         "available": false,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": false,
+        "trainer": true
     },
     {
         "id": 25669,
         "data": [
-            "canchas de pádel techadas roja padel - garay 2477"
+            "canchas de pádel techadas roja padel"
+        ],
+        "street": [
+            "av garay 2477"
         ],
         "phone": [
             "02254 61-2909"
@@ -126,7 +155,10 @@
     {
         "id": 25670,
         "data": [
-            "green pádel - espora y aguila"
+            "green pádel"
+        ],
+        "street": [
+            "espora y aguila"
         ],
         "phone": [
             "02254 41-4361"
@@ -136,6 +168,10 @@
             "lunes a sabados"
         ],
         "available": false,
-        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios"
+        "info": "Este predio cuenta con 4 canchas de padel, con paredes de acrilico. Cuenta con una tienda de accesorios",
+        "courts": 3,
+        "walls": "acrilico",
+        "shop": false,
+        "trainer": true
     }
 ]

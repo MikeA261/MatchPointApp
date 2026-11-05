@@ -1,13 +1,16 @@
 from jinja2 import Template
-from admins.admin import admin_menu_login
 
 def login_funcion():
     from users.login import login_user
     login_user()
 
 def register_funcion():
-    from register import new_account
+    from users.register import new_account
     new_account()
+
+def admin_menu():
+    from admins.admin import admin_menu_login
+    admin_menu_login()
 
 def my_funtion():
     try:    
@@ -30,7 +33,7 @@ def my_funtion():
             case 2:
                 login_funcion()                                      
             case 3:
-                admin_menu_login()
+                admin_menu()
             case 4:
                 print(f'HASTA LUEGO')
             case  _ :

@@ -1,0 +1,47 @@
+[
+    {
+        "user_id": 91603929,
+        "username": "michael261",
+        "court_id": 26265,
+        "court_name": "lasaigues pádel pinamar",
+        "date": "2026-11-26",
+        "time": "15:00",
+        "status": "cancelled"
+    },
+    {
+        "user_id": 91603929,
+        "username": "michael261",
+        "court_id": 26265,
+        "court_name": "lasaigues pádel pinamar",
+        "date": "2026-11-09",
+        "time": "13:00",
+        "status": "cancelled"
+    },
+    {
+        "user_id": 91603929,
+        "username": "michael261",
+        "court_id": 26265,
+        "court_name": "lasaigues pádel pinamar",
+        "date": "2026-11-09",
+        "time": "13:00",
+        "status": "active"
+    },
+    {
+        "user_id": 91603929,
+        "username": "michael261",
+        "court_id": 26265,
+        "court_name": "lasaigues pádel pinamar",
+        "date": "2026-11-09",
+        "time": "17:00",
+        "status": "cancelled"
+    },
+    {
+        "user_id": 91603929,
+        "username": "michael261",
+        "court_id": 25665,
+        "court_name": "a pádel",
+        "date": "2026-11-17",
+        "time": "16:00",
+        "status": "cancelled"
+    }
+]
