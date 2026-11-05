@@ -14,6 +14,7 @@ from reserve import (
     show_all_courts,
     user_reservations,
 )
+from user_account import user_account
 
 
 # Muestra las reservas del usuario y permite cancelar una; 0 vuelve sin cambios.
@@ -51,9 +52,6 @@ TUS RESERVAS ACTIVAS
     while input("Ingresa 0 para regresar al menú: ").strip() != "0":
         print("Opción inválida. Ingresa 0 para regresar.")
 
-def my_acount():
-    return print("ok")
-
 def menu(user: list):
     plantilla = """
 ===================================================================
@@ -80,8 +78,8 @@ def menu(user: list):
                     cancel_court(user[0])
                 case 3:
                     show_all_courts()
-                case 4: 
-                    my_acount
+                case 4:
+                    user_account(user[0])
                 case 5:
                     print("-----------------------------------------------------")
                     print("         CERRANDO SESIÓN ------ HASTA LUEGO          ")

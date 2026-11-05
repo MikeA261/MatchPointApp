@@ -10,10 +10,21 @@ from pathlib import Path
 from jinja2 import Template
 
 #IMPORTACION DE ARCHIVOS LOCALES
+from notifications import add_notification
 from reader import read_courts
 
 RESERVATIONS_FILE = Path(__file__).resolve().parent / "reservations.json"
 DURACION_TURNO = timedelta(hours=1)
+
+
+def _registrar_notificacion(evento: str, reserva: dict) -> None:
+    try:
+        add_notification(evento, reserva)
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(
+            "AVISO: la operación se guardó, pero no se pudo registrar "
+            f"la notificación: {error}"
+        )
 
 
 class TurnoOcupadoError(ValueError):
@@ -262,6 +273,7 @@ def cancel_reservation(
     with reservations_file.open("w", encoding="utf-8") as file:
         json.dump(reservations, file, ensure_ascii=False, indent=4)
         file.write("\n")
+    _registrar_notificacion("Reserva cancelada", reserva_elegida)
     return reserva_elegida
 
 
@@ -332,6 +344,7 @@ def create_reservation(
     with reservations_file.open("w", encoding="utf-8") as file:
         json.dump(reservations, file, ensure_ascii=False, indent=4)
         file.write("\n")
+    _registrar_notificacion("Nueva reserva", reservation)
     return reservation
 
 

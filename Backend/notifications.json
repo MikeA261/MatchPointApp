@@ -1,0 +1,18 @@
+[
+    {
+        "event": "Nueva reserva",
+        "username": "usuario_demo",
+        "court_name": "open house pádel - calle jason 1044",
+        "date": "2026-11-06",
+        "time": "09:00",
+        "created_at": "2026-11-05T13:13:52"
+    },
+    {
+        "event": "Reserva cancelada",
+        "username": "usuario_demo",
+        "court_name": "open house pádel - calle jason 1044",
+        "date": "2026-11-06",
+        "time": "09:00",
+        "created_at": "2026-11-05T13:13:52"
+    }
+]

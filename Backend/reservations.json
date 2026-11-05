@@ -16,5 +16,14 @@
         "date": "2008-01-22",
         "time": "19:00",
         "status": "cancelled"
+    },
+    {
+        "user_id": 965657069,
+        "username": "usuario_demo",
+        "court_id": 62654,
+        "court_name": "open house pádel - calle jason 1044",
+        "date": "2026-11-06",
+        "time": "09:00",
+        "status": "cancelled"
     }
 ]

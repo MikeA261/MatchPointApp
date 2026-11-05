@@ -1,4 +1,4 @@
-# cotrola el apartado de admin 
+"""Funciones de registro, acceso y administración del menú administrativo."""
 import json
 
 from jinja2 import Template
@@ -7,9 +7,11 @@ import random as rn
 from reader import read_admin
 from reader import read_courts
 from writer import write_admin
+from writer import write_courts
+from notifications import show_admin_notifications
 
-# Pide un DNI que no este registrado y que tenga entre 7 y 8 digitos.
 def validate_dni()->int:
+    """Solicita un DNI único de 7 u 8 dígitos entre los administradores guardados."""
     data = read_admin()
     try:
         while True:
@@ -29,8 +31,8 @@ def validate_dni()->int:
     finally:
         pass
 
-# Solicita un nombre compuesto solo por letras.
 def validate_name():
+    """Solicita un nombre que contenga únicamente letras."""
     while True:
         name = str(input("INGRESE SU NOMBRE:  ")).strip()
         if name.isalpha():
@@ -39,8 +41,8 @@ def validate_name():
             print("X - EL NOMBRE SOLO DEBE CONTENER LETRAS - X")
             
 
-# Solicita una contrasena de exactamente 6 caracteres, con letras y numeros.
 def validate_psw():
+    """Solicita una contraseña de seis caracteres que combine letras y números."""
     while True:
         psw = str(input("psw:  "))
         large = list(psw)
@@ -56,8 +58,8 @@ def validate_psw():
         else:
             print("X - ERROR - CONTRASEÑA DEMASIADO CORTA - X")
 
-# Muestra las empresas/canchas registradas y devuelve el ID elegido.
 def choose_court():
+    """Muestra la cancha seleccionada y devuelve su ID para asociarla al administrador."""
     data = read_courts()
     try:
         while True:
@@ -88,12 +90,147 @@ def choose_court():
             
     
 def back_menu():
+    """Regresa al menú principal mediante una importación local para evitar ciclos."""
     # Importacion local para evitar una dependencia circular al cargar el modulo.
     from main import my_funtion
     my_funtion()
 
-# Valida el acceso del administrador con DNI y contrasena, sin abrir aun otro menu.
+
+def show_admin_courts() -> None:
+    """Lista las canchas con sus datos principales sin modificar el JSON."""
+    try:
+        courts = read_courts()
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(f"No se pudieron cargar las canchas: {error}")
+        return
+
+    plantilla = """
+===================================================================
+                    CANCHAS REGISTRADAS
+===================================================================
+{% for cancha in canchas %}
+ID: {{ cancha.id }}
+CANCHA: {{ cancha.data | default([]) | join(', ') | upper }}
+HORARIOS: {{ cancha.hs | default([]) | join(', ') | upper }}
+TELÉFONO: {{ cancha.phone | default([]) | join(', ') }}
+ESTADO: {{ "HABILITADA" if cancha.available else "NO DISPONIBLE" }}
+-------------------------------------------------------------------
+{% endfor %}
+"""
+    print(Template(plantilla).render(canchas=courts))
+    while input("Ingrese 0 para regresar al menú: ").strip() != "0":
+        print("Opción inválida. Ingrese 0 para regresar.")
+
+
+def manage_admin_courts() -> None:
+    """Permite elegir una cancha, confirmar el cambio de estado y guardarlo."""
+    try:
+        courts = read_courts()
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        print(f"No se pudieron cargar las canchas: {error}")
+        return
+
+    if not courts:
+        print("No hay canchas registradas para administrar.")
+        return
+
+    plantilla = """
+===================================================================
+                    ADMINISTRAR CANCHAS
+===================================================================
+{% for cancha in canchas %}
+ID: {{ cancha.id }}
+CANCHA: {{ cancha.data | default([]) | join(', ') | upper }}
+ESTADO ACTUAL: {{ "HABILITADA" if cancha.available else "BLOQUEADA" }}
+-------------------------------------------------------------------
+{% endfor %}
+"""
+    print(Template(plantilla).render(canchas=courts))
+
+    # Se vuelve a pedir el ID si no es numérico o no corresponde a una cancha.
+    while True:
+        entrada = input("Ingrese el ID de la cancha (0 para volver): ").strip()
+        if entrada == "0":
+            return
+        if not entrada.isdigit():
+            print("Ingrese un ID numérico.")
+            continue
+
+        court_id = int(entrada)
+        court = next((item for item in courts if item.get("id") == court_id), None)
+        if court is None:
+            print("No existe una cancha con ese ID.")
+            continue
+        if not isinstance(court.get("available"), bool):
+            print("No se puede cambiar el estado: el dato de disponibilidad no es válido.")
+            return
+
+        # El nuevo estado siempre invierte el actual: habilitada pasa a bloqueada y viceversa.
+        nuevo_estado = not court["available"]
+        accion = "habilitar" if nuevo_estado else "bloquear"
+        confirmacion = input(
+            f"¿Confirma que desea {accion} esta cancha? (s/n): "
+        ).strip().lower()
+        if confirmacion not in ("s", "si"):
+            print("Cambio cancelado.")
+            return
+
+        # Solo se modifica y persiste después de que el administrador confirma.
+        court["available"] = nuevo_estado
+        try:
+            write_courts(courts)
+        except OSError as error:
+            print(f"No se pudo guardar el estado de la cancha: {error}")
+            return
+
+        estado = "habilitada" if nuevo_estado else "bloqueada"
+        print(f"Cancha {estado} correctamente.")
+        return
+
+
+def admin_menu(admin: dict) -> None:
+    """Presenta las opciones del administrador y dirige cada selección."""
+    plantilla = """
+===================================================================
+               MATCH POINT - MENÚ ADMINISTRATIVO
+===================================================================
+BIENVENIDO, {{ name | upper }}
+-------------------------------------------------------------------
+1 - CONSULTAR CANCHAS
+2 - ADMINISTRAR CANCHAS
+3 - CONSULTAR RESERVAS
+4 - VER NOTIFICACIONES
+5 - CERRAR SESIÓN
+-------------------------------------------------------------------
+    """
+    while True:
+        print(Template(plantilla).render(admin))
+        try:
+            opcion = int(input("Seleccione una opción: "))
+        except ValueError:
+            print("X - INGRESE SOLO NÚMEROS - X")
+            continue
+
+        match opcion:
+            case 1:
+                show_admin_courts()
+            case 2:
+                manage_admin_courts()
+            case 3:
+                # Esta sección todavía es provisional y no consulta reservas.
+                print("La consulta de reservas todavía no está implementada, falta definir.")
+            case 4:
+                show_admin_notifications()
+            case 5:
+                print("CERRANDO SESIÓN ADMINISTRATIVA.")
+                back_menu()
+                return
+            case _:
+                print("X - OPCIÓN FUERA DE RANGO - X")
+
+
 def login_admin() -> dict | None:
+    """Comprueba DNI y contraseña; devuelve el administrador autenticado o None."""
     try:
         data = read_admin()
     except (OSError, json.JSONDecodeError, ValueError) as error:
@@ -123,8 +260,8 @@ def login_admin() -> dict | None:
     print(f"INICIO DE SESIÓN CORRECTO. BIENVENIDO, {admin.get('name', '').upper()}.")
     return admin
 
-# Registra un administrador, lo asocia a una cancha y guarda los datos en JSON.
 def register_admin():
+    """Recopila los datos del nuevo administrador, lo asocia a una cancha y lo guarda."""
     dni= validate_dni()
     name = validate_name()
     psw = validate_psw()
@@ -141,14 +278,12 @@ def register_admin():
     data = read_admin()
     data.append(new_admin)
     write_admin(data)
-    admin_menu_login()
-    
-    return print("ok")
+    print("ADMINISTRADOR REGISTRADO CORRECTAMENTE.")
+    return new_admin
 
-# Muestra las opciones de acceso administrativo y deriva a la accion elegida.
 def admin_menu_login():
-    try:
-        plantilla= """
+    """Muestra el acceso administrativo para registrar, iniciar sesión o volver."""
+    plantilla = """
 --------------------------------------------------------
                 LOGIN ADMINISTRATIVO
 --------------------------------------------------------
@@ -157,24 +292,30 @@ def admin_menu_login():
 3 SALIR
 
     """
-        mi_plantilla = Template(plantilla)
+    mi_plantilla = Template(plantilla)
+    while True:
         print(mi_plantilla.render())
-        opcion = int(input())
+        try:
+            opcion = int(input())
+        except ValueError:
+            print("X - ERROR MENU - INGRESE SOLO NUMEROS - X")
+            continue
+
         match opcion:
             case 1:
-                register_admin()         
+                try:
+                    register_admin()
+                except (OSError, json.JSONDecodeError, ValueError) as error:
+                    print(f"No se pudo registrar el administrador: {error}")
             case 2:
-                login_admin()
+                admin = login_admin()
+                if admin is not None:
+                    admin_menu(admin)
+                    return
             case 3:
                 back_menu()
-            case _ :
+                return
+            case _:
                 print("-----------------------------------------------------")
                 print("            x - OPCION FUERA DE RANGO - x            ")
-                print("-----------------------------------------------------")  
-                admin_menu_login() 
-    except(ValueError):
-            print("X - ERROR MENU - INGRESE SOLO NUMEROS - X")
-            admin_menu_login()
-    finally:
-        pass
-    
+                print("-----------------------------------------------------")
