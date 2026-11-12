@@ -89,13 +89,6 @@ def choose_court():
             
             
     
-def back_menu():
-    """Regresa al menú principal mediante una importación local para evitar ciclos."""
-    # Importacion local para evitar una dependencia circular al cargar el modulo.
-    from main import my_funtion
-    my_funtion()
-
-
 def show_admin_courts() -> None:
     """Lista las canchas con sus datos principales sin modificar el JSON."""
     try:
@@ -223,7 +216,6 @@ BIENVENIDO, {{ name | upper }}
                 show_admin_notifications()
             case 5:
                 print("CERRANDO SESIÓN ADMINISTRATIVA.")
-                back_menu()
                 return
             case _:
                 print("X - OPCIÓN FUERA DE RANGO - X")
@@ -313,7 +305,6 @@ def admin_menu_login():
                     admin_menu(admin)
                     return
             case 3:
-                back_menu()
                 return
             case _:
                 print("-----------------------------------------------------")
