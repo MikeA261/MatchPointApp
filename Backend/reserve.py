@@ -79,6 +79,7 @@ def _hora_a_minutos(hora: str) -> int:
     horas = int(coincidencia.group(1))
     minutos = int(coincidencia.group(2) or 0)
     sufijo = coincidencia.group(3)
+    
     if minutos > 59 or horas > 24:
         raise ValueError("El horario de atención de la cancha no es válido.")
     # Algunos datos usan "20pm"; las horas mayores a 12 ya están en formato 24 h.

@@ -3,16 +3,24 @@
 from jinja2 import Template
 from admins.admin import admin_menu_login
 
-def login_funcion():
-    from users.login import login_user
-    login_user()
+def iniciar_sesion():
 
-def register_funcion():
-    from register import new_account
-    new_account()
+    from users.login import iniciar_sesion_user
+    iniciar_sesion_user()
 
-def my_funtion():
-    try:    
+def registrarse():
+
+    """
+    ejecutara el archivos Registrarse para posterior ejecutar la funcion
+    cuenta_nueva , que se encargara de resgistrar al usuario
+    
+    """
+    from registrarse import cuenta_nueva # importamos la funcion desde el archivo 
+
+    cuenta_nueva() # la llamamos aqui 
+
+def mi_funcion():
+    while True:
         plantilla= """
 ==============================================================
                   BIENVENIDOS A  MATCH POINT    
@@ -25,29 +33,35 @@ def my_funtion():
         mi_plantilla = Template (plantilla)
         print(mi_plantilla.render())
     
-        opcion = int(input(""))
-        match opcion:
-            case 1:
-                register_funcion()
-            case 2:
-                login_funcion()                                      
-            case 3:
-                admin_menu_login()
-            case 4:
-                print(f'HASTA LUEGO')
-            case  _ :
-                print("-----------------------------------------------------")
-                print("            x - OPCION FUERA DE RANGO - x            ")
-                print("-----------------------------------------------------")
-                main()      
-    except ValueError:
-        print("----------------------------------------------------")
-        print("         X - POR FAVOR USE SOLO NUMEROS - X         ")
-        print("----------------------------------------------------")
-        main()
-        
+        try:
+            opcion = int(input(""))
+        except ValueError:
+            print("----------------------------------------------------")
+            print("         X - POR FAVOR USE SOLO NUMEROS - X         ")
+            print("----------------------------------------------------")
+            
+            continue
+
+        if opcion == 1:
+            registrarse() # hecho 
+
+        elif opcion == 2:
+            iniciar_sesion()# en proceso    
+
+        elif opcion == 3:
+            admin_menu_login()
+
+        elif opcion == 4:
+            print("HASTA LUEGO")
+            break
+        else :
+            print("-----------------------------------------------------")
+            print("            x - OPCION FUERA DE RANGO - x            ")
+            print("-----------------------------------------------------")
+
+
 def main():
-    my_funtion()
+    mi_funcion()
 
 if __name__ == '__main__':
     main()

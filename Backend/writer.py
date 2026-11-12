@@ -8,11 +8,13 @@ DATA_DIR = Path(__file__).resolve().parent / "locals_json"
 
 def _write_json_list(path: Path, data: list[dict]) -> None:
     with path.open("w", encoding="utf-8") as archivo:
+        
         json.dump(data, archivo, ensure_ascii=False, indent=4)
         archivo.write("\n")
 
 
 def write_user(dates: list[dict]) -> None:
+    
     _write_json_list(DATA_DIR / "user.json", dates)
 
 

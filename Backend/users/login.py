@@ -5,26 +5,23 @@ import json
 
 from jinja2 import Template
 
-from main import my_funtion
 from menu.menu import menu
 from reader import read_user
 
 
-def save_user(usrname: str, psw: str, data: list[dict]) -> dict | None:
-    user = next(
+def save_usuario( psw: str, coincidencia: list[dict]) -> dict | None:
+    """Devuelve la cuenta coincidente con la contraseña, o None si no existe."""
+    return next(
         (
-            item
-            for item in data
-            if item.get("username") == usrname and item.get("psw") == psw
+            item for item in coincidencia
+            if item.get("psw") == psw
         ),
         None,
     )
-    if user is not None:
-        welcome([user])
-    return user
 
 
 def welcome(user: list[dict]) -> None:
+    """Muestra el saludo y abre el menú de la cuenta autenticada."""
     plantilla = """
 ========================================================
             BIENVENIDO: {{ name | upper }}
@@ -34,13 +31,15 @@ def welcome(user: list[dict]) -> None:
     menu(user)
 
 
-def login_user() -> None:
+def iniciar_sesion_user() -> None:
+    """Autentica a una cuenta y regresa al menú principal al terminar."""
     try:
-        data = read_user()
+        datos = read_user()
     except (OSError, json.JSONDecodeError, ValueError) as error:
         print(f"No se pudieron cargar los usuarios: {error}")
         return
 
+    # Repite la solicitud del nombre hasta encontrar una cuenta registrada.
     while True:
         plantilla = """
 =======================================================
@@ -49,9 +48,13 @@ def login_user() -> None:
 Ingrese su nombre de usuario:
         """
         print(Template(plantilla).render())
+
+
         username = input("").strip().lower()
-        usuarios = [user for user in data if user.get("username") == username]
-        if not usuarios:
+        # Conserva las cuentas con ese nombre para comprobar después la contraseña.
+        coincidencia = [user for user in datos if user.get("username") == username]
+
+        if not coincidencia:
             print("EL USUARIO NO EXISTE.")
             continue
 
@@ -64,18 +67,18 @@ Ingrese su nombre de usuario:
 Ingrese su contraseña:
             """
             print(Template(plantilla).render())
+
             password = input("")
-            usuario = next(
-                (user for user in usuarios if user.get("psw") == password),
-                None,
-            )
+            # Comprueba la contraseña entre las cuentas que coinciden con el nombre.
+            usuario = save_usuario(password, coincidencia)
+
             if usuario is not None:
                 welcome([usuario])
                 return
 
             intentos -= 1
-            print("LA CONTRASEÑA ES INCORRECTA.")
+            print(f"LA CONTRASEÑA ES INCORRECTA. Intentos restantes --> {intentos}")
 
+        # Después de tres errores, termina el login para volver al menú principal.
         print("DEMASIADOS INTENTOS.")
-        my_funtion()
         return

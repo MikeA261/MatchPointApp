@@ -7,7 +7,6 @@ import json
 from jinja2 import Template
 
 #Importaciones de archivos locales
-from main import my_funtion
 from reserve import (
     cancel_reservation,
     court_list,
@@ -36,10 +35,17 @@ TUS RESERVAS ACTIVAS
 {% endfor %}
 """
     print(Template(plantilla_reservas).render(reservas=reservas))
+
     try:
         numero = int(input("Número de reserva a cancelar (0 para volver): "))
-        if numero == 0:
-            return
+    except ValueError:
+        print("Ingrese un número válido.")
+        return
+
+    if numero == 0:
+        return
+
+    try:
         cancel_reservation(user, numero)
     except ValueError as error:
         print(f"No se pudo cancelar la reserva: {error}")
@@ -49,10 +55,12 @@ TUS RESERVAS ACTIVAS
         return
 
     print("RESERVA CANCELADA. EL TURNO VOLVIÓ A ESTAR DISPONIBLE.")
-    while input("Ingresa 0 para regresar al menú: ").strip() != "0":
-        print("Opción inválida. Ingresa 0 para regresar.")
+    return
 
-def menu(user: list):
+def menu(user: list[dict]):
+
+    usuario = user[0]
+
     plantilla = """
 ===================================================================
          MATCH POINT   ---------   JUGÁ SEGURO - JUGÁ SANO
@@ -67,31 +75,35 @@ def menu(user: list):
 ------------------------------------------------------------------- 
     """
     mi_plantilla = Template(plantilla)
+    
     while True:
-        print(mi_plantilla.render(user[0]))
+        print(mi_plantilla.render(usuario))
+
         try:
             opcion= int(input(""))
-            match opcion:
-                case 1:
-                    court_list(user[0])
-                case 2:
-                    cancel_court(user[0])
-                case 3:
-                    show_all_courts()
-                case 4:
-                    user_account(user[0])
-                case 5:
-                    print("-----------------------------------------------------")
-                    print("         CERRANDO SESIÓN ------ HASTA LUEGO          ")
-                    print("-----------------------------------------------------")
-                    my_funtion()
-                    break
-                case _ :
-                    print("-----------------------------------------------------")
-                    print("         x - OPCIÓN NO FUERA DE RANGO - X            ")
-                    print("-----------------------------------------------------")
         except ValueError:
             print("-----------------------------------------------------")
             print("        X - ERROR - INGRESE SOLO NÚMEROS - X         ")
-            print("-----------------------------------------------------")    
+            print("-----------------------------------------------------") 
+            continue  
+
+
+        match opcion:
+            case 1:
+                court_list(usuario)
+            case 2:
+                cancel_court(usuario)
+            case 3:
+                show_all_courts()
+            case 4:
+                user_account(usuario)
+            case 5:
+                print("-----------------------------------------------------")
+                print("         CERRANDO SESIÓN ------ HASTA LUEGO          ")
+                print("-----------------------------------------------------")
+                break
+            case _ :
+                print("-----------------------------------------------------")
+                print("         x - OPCIÓN NO FUERA DE RANGO - X            ")
+                print("-----------------------------------------------------")
     return
